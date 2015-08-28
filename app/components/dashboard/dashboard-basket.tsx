@@ -28,7 +28,7 @@ class DashboardBasketComponent extends React.Component<Props, State> {
 	}
 
   private handleDrop = (e) => {
-  	var id = e.dataTransfer.getData('id');
+  	var id = e.dataTransfer.getData('product');
 
   }
 
