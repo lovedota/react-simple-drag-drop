@@ -8,7 +8,8 @@ interface Props extends React.Props<any> {
 }
 
 interface State {
-  isDragging: boolean;
+  isDragEnter: boolean;
+  tempName?: string;
 }
 
 class DashboardProductItemComponent extends React.Component<Props, State> {
@@ -18,15 +19,17 @@ class DashboardProductItemComponent extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      isDragging: false
+      isDragEnter: false,
+      tempName: ''
     }
   }
 
 	render() {
-    let isDragging = this.state.isDragging,
+    let isDragEnter = this.state.isDragEnter,
+      tempName = this.state.tempName,
       product = this.props.product,
       cssClasses = classNames('dashboard-product-item', {
-        'placeholder': isDragging
+        'placeholder': isDragEnter
       });
 
     return (
@@ -39,29 +42,27 @@ class DashboardProductItemComponent extends React.Component<Props, State> {
         onDragEnd={this.handleDragEnd}
      >
         <header>
-          {product.name}
+          {tempName || product.name}
         </header>
       </div>
     );
 	}
 
-  private handleDragEnter(e) {
-    //e.target.style.border = "3px dotted red";
+  private handleDragEnter = (e: React.DragEvent) => {
+    let dragData = e.dataTransfer.getData('name');
+    this.setState({isDragEnter: true, tempName: dragData});
   }
 
-  private handleDragLeave(e) {
-    //e.target.style.border = "2px dashed #0087F7";
+  private handleDragLeave = (e: React.DragEvent) => {
+    this.setState({isDragEnter: false, tempName: ''});
   }
 
-  private handleDragStart = (e) => {
-    this.setState({isDragging: true});
-    //e.target.style.opacity = '0.4';
-    e.dataTransfer.setData("product", this.props.product);
+  private handleDragStart = (e: React.DragEvent) => {
+    let name = this.props.product.name;
+    e.dataTransfer.setData("name", name);
   }
 
-  private handleDragEnd = (e) => {
-    this.setState({isDragging: false});
-    //e.target.style.opacity = '1';
+  private handleDragEnd = (e: React.DragEvent) => {
   }
 }
 

@@ -23,9 +23,13 @@ $class: dashboard-product-item;
     border-top-right-radius: 10px;
   }
 
-  &placeholder {
+  &.placeholder {
     border: 1px solid #fcefa1;
     background: #fbf9ee;
     color: #363636;
+
+    header {
+      display: none;
+    }
   }
 }
