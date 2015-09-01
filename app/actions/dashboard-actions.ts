@@ -11,45 +11,19 @@ class DashboardActions {
     });
   }
 
-  toogleDashboardItem(warehouseId: string) {
+  moveProduct(fromProductId: string, toProductId: string) {
     Dispatcher.dispatch({
-      type: DashboardConstants.DASHBOARD_ITEM_TOGGLE,
-      warehouseId
+      type: DashboardConstants.DASHBOARD_DRAG_ENTER,
+      fromProductId,
+      toProductId
     });
   }
 
-  toogleDashboardProduct(warehouseId: string, productId: string, checked: boolean) {
+  startDragging(productId) {
     Dispatcher.dispatch({
-      type: DashboardConstants.DASHBOARD_PRODUCT_TOGGLE,
-      warehouseId,
-      productId,
-      checked
+      type: DashboardConstants.DASHBOARD_DRAG_START,
+      productId
     });
-  }
-
-  saveSelectedNextDashboard(nextDashboardId) {
-    Dispatcher.dispatch({
-      type: DashboardConstants.DASHBOARD_NEXT_DASHBOARD_CHANGE,
-      nextDashboardId
-    });
-  }
-
-  moveSelectedProductsToDashboard() {
-    let TIMEOUT_ANIMATION = 500;
-
-    Dispatcher.dispatch({
-      type: DashboardConstants.DASHBOARD_EXPAND_NEXT_DASHBOARD
-    });
-
-    Dispatcher.dispatch({
-      type: DashboardConstants.DASHBOARD_REMOVE_SELECTED_PRODUCTS_CURRENT_DASHBOARD
-    });
-
-    setTimeout(() => {
-      Dispatcher.dispatch({
-        type: DashboardConstants.DASHBOARD_MOVE_SELECTED_PRODUCT_TO_DASHBOARD
-      });
-    }, TIMEOUT_ANIMATION);
   }
 }
 
