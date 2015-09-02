@@ -2,14 +2,14 @@ import './styles/dashboard-product-item.scss';
 
 import * as React from 'react';
 import classNames from "classnames";
+import DashboardActions from '../../actions/dashboard-actions';
 
 interface Props extends React.Props<any> {
   product: Product;
 }
 
 interface State {
-  isDragEnter: boolean;
-  tempName?: string;
+  isDragging: boolean
 }
 
 class DashboardProductItemComponent extends React.Component<Props, State> {
@@ -19,17 +19,15 @@ class DashboardProductItemComponent extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      isDragEnter: false,
-      tempName: ''
+      isDragging: false
     }
   }
 
 	render() {
-    let isDragEnter = this.state.isDragEnter,
-      tempName = this.state.tempName,
+    let isDragging = this.state.isDragging,
       product = this.props.product,
       cssClasses = classNames('dashboard-product-item', {
-        'placeholder': isDragEnter
+        'dragging': isDragging
       });
 
     return (
@@ -42,27 +40,36 @@ class DashboardProductItemComponent extends React.Component<Props, State> {
         onDragEnd={this.handleDragEnd}
      >
         <header>
-          {tempName || product.name}
+          {product.name}
         </header>
       </div>
     );
 	}
 
   private handleDragEnter = (e: React.DragEvent) => {
-    let dragData = e.dataTransfer.getData('name');
-    this.setState({isDragEnter: true, tempName: dragData});
+    let toProductId = window['toProductId'],
+      fromProductId = this.props.product.id;
+
+    if (fromProductId !== toProductId) {
+      DashboardActions.moveProduct(fromProductId, toProductId);
+    }
   }
 
   private handleDragLeave = (e: React.DragEvent) => {
-    this.setState({isDragEnter: false, tempName: ''});
+
   }
 
   private handleDragStart = (e: React.DragEvent) => {
-    let name = this.props.product.name;
-    e.dataTransfer.setData("name", name);
+    let productId = this.props.product.id;
+
+    e.dataTransfer.effectAllowed='move';
+    e.dataTransfer.setData('id', productId);
+    window['toProductId'] = productId;
+    this.setState({isDragging: true});
   }
 
   private handleDragEnd = (e: React.DragEvent) => {
+      this.setState({isDragging: false});
   }
 }
 

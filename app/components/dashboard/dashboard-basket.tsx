@@ -8,11 +8,19 @@ interface Props extends React.Props<any> {
 }
 
 interface State {
-
+  left: number;
 }
 
 class DashboardBasketComponent extends React.Component<Props, State> {
   static displayName = "DashboardBasketComponent";
+
+  constructor(props) {
+      super(props);
+          
+      this.state = {
+        left: 0
+      }
+  }
 
 	render() {
     return (
@@ -28,8 +36,8 @@ class DashboardBasketComponent extends React.Component<Props, State> {
 	}
 
   private handleDrop = (e) => {
-  	var id = e.dataTransfer.getData('product');
-
+  	let id = e.dataTransfer.getData('id');
+    console.log(e.dataTransfer.getData('id'));
   }
 
   private handleDragEnter(e) {
