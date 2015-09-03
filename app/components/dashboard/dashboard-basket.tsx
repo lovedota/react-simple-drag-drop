@@ -16,7 +16,7 @@ class DashboardBasketComponent extends React.Component<Props, State> {
 
   constructor(props) {
       super(props);
-          
+
       this.state = {
         left: 0
       }

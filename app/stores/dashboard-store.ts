@@ -17,7 +17,7 @@ interface DashboardAction {
 function createListStyles(products: Product[], rows, cols) {
     var rules = [],
         index = 0;
-       
+
     for (var rowIndex = 0; rowIndex < rows; rowIndex++) {
         for (var colIndex = 0; colIndex < cols; colIndex++) {
             var x = (colIndex * 100) + "%",
@@ -60,6 +60,11 @@ class DashboardStore extends BaseStore {
 
     this._products = this._products.splice(fromProductIndex, 1);
     this._products = this._products.splice(toProductIndex, 0, fromProduct);
+<<<<<<< HEAD
+=======
+
+    this._products = createListStyles(this._products.toArray(), 3, 2);
+>>>>>>> 25e38d376ca5cad0876ba214475d9ce77bdcba03
 
     this.emitChange();
   }
