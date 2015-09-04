@@ -1,7 +1,7 @@
 import './styles/dashboard-product-item.scss';
 
-import * as React from 'react';
-import classNames from "classnames";
+import * as React       from 'react';
+import classNames       from "classnames";
 import DashboardActions from '../../actions/dashboard-actions';
 
 interface Props extends React.Props<any> {
@@ -25,24 +25,24 @@ class DashboardProductItemComponent extends React.Component<Props, State> {
 
 	render() {
     let isDragging = this.state.isDragging,
-      product = this.props.product,
+      {product} = this.props,
       cssClasses = classNames('dashboard-product-item', {
         'dragging': isDragging
       });
 
     return (
-      <div
+      <li
+        style={product.styles}
         className={cssClasses}
         draggable={true}
         onDragEnter={this.handleDragEnter}
+        onDragOver={this.handleDragOver}
         onDragLeave={this.handleDragLeave}
         onDragStart={this.handleDragStart}
         onDragEnd={this.handleDragEnd}
      >
-        <header>
-          {product.name}
-        </header>
-      </div>
+        {product.name}
+      </li>
     );
 	}
 
@@ -57,6 +57,14 @@ class DashboardProductItemComponent extends React.Component<Props, State> {
 
   private handleDragLeave = (e: React.DragEvent) => {
 
+  }
+
+  private handleDragOver = (e: any) => {
+    let dragX = e.pageX,
+      dragY = e.pageY;
+
+    console.log(e.target.getBoundingClientRect());
+    DashboardActions.mouseChange(dragX, dragY);
   }
 
   private handleDragStart = (e: React.DragEvent) => {

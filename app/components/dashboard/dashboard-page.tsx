@@ -9,12 +9,14 @@ interface Props {
 }
 
 interface State {
-  products: Product[]
+  products: Product[];
+  mousePosition: any;
 }
 
 function getStateFromStores(): State {
   return {
-    products: DashboardStore.products
+    products: DashboardStore.products,
+    mousePosition: DashboardStore.mousePosition
   };
 }
 
@@ -33,11 +35,23 @@ class DashboardPageComponent extends React.Component<Props, State> {
     DashboardStore.addChangeListener(this.onChange);
   }
 
+  componentDidUpdate() {
+    let {mousePosition} = this.state,
+      $productList = React.findDOMNode(this.refs['productList']);
+
+
+    console.log('Mouse', mousePosition.pageY);
+    console.log('ProductList', $productList.scrollTop);
+    if (mousePosition >= $productList.scrollTop) {
+      $productList.scrollTop = mousePosition.pageY;
+    }
+  }
+
   render() {
      return (
        <div className="row">
         <div className="col-md-6">
-          <DashboardProductList products={this.state.products}/>
+          <DashboardProductList products={this.state.products} ref="productList"/>
         </div>
         <div className="col-md-6">
           <DashboardBasket/>

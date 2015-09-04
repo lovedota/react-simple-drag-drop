@@ -2,24 +2,21 @@ import './styles/dashboard-basket.scss';
 
 import * as React from 'react';
 import classNames from "classnames";
+import DashboardActions from '../../actions/dashboard-actions';
 
 interface Props extends React.Props<any> {
 
 }
 
 interface State {
-  left: number;
+
 }
 
 class DashboardBasketComponent extends React.Component<Props, State> {
   static displayName = "DashboardBasketComponent";
 
   constructor(props) {
-      super(props);
-
-      this.state = {
-        left: 0
-      }
+    super(props);
   }
 
 	render() {
@@ -37,7 +34,7 @@ class DashboardBasketComponent extends React.Component<Props, State> {
 
   private handleDrop = (e) => {
   	let id = e.dataTransfer.getData('id');
-    console.log(e.dataTransfer.getData('id'));
+    DashboardActions.removeProduct(id);
   }
 
   private handleDragEnter(e) {
@@ -50,6 +47,7 @@ class DashboardBasketComponent extends React.Component<Props, State> {
 
   private handleDragOver(e) {
     e.preventDefault();
+    e.target.style.border = "2px dashed #0087F7";
     e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
   }
 }

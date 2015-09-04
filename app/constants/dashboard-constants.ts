@@ -2,8 +2,8 @@ import keyMirror from 'keymirror';
 
 export default keyMirror({
   DASHBOARD_LOAD_COMPLETE: null,
-  DASHBOARD_START_DRAGGING: null,
-  DASHBOARD_END_DRAGGING: null,
   DASHBOARD_CHANGE_EVENT: null,
-  DASHBOARD_DRAG_ENTER: null
+  DASHBOARD_MOVE_PRODUCT: null,
+  DASHBOARD_REMOVE_PRODUCT: null,
+  DASHBOARD_MOUSE_CHANGE: null
 });

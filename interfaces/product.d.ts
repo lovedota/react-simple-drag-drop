@@ -3,4 +3,6 @@ interface Product {
   name?: string;
   imageUrl?: string;
   price?: number;
+  styles?: any;
+  order?: number;
 }

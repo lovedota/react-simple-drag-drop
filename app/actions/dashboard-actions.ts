@@ -11,18 +11,26 @@ class DashboardActions {
     });
   }
 
-  moveProduct(fromIndex: number, toIndex: number) {
+  moveProduct(fromProductId: string, toProductId: string) {
     Dispatcher.dispatch({
-      type: DashboardConstants.DASHBOARD_DRAG_ENTER,
-      fromIndex,
-      toIndex
+      type: DashboardConstants.DASHBOARD_MOVE_PRODUCT,
+      fromProductId,
+      toProductId
     });
   }
 
-  startDragging(productId) {
+  removeProduct(productId) {
     Dispatcher.dispatch({
-      type: DashboardConstants.DASHBOARD_DRAG_START,
+      type: DashboardConstants.DASHBOARD_REMOVE_PRODUCT,
       productId
+    });
+  }
+
+  mouseChange(pageX, pageY) {
+    Dispatcher.dispatch({
+      type: DashboardConstants.DASHBOARD_MOUSE_CHANGE,
+      pageX,
+      pageY
     });
   }
 }

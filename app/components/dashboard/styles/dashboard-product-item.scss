@@ -1,45 +1,28 @@
 $class: dashboard-product-item;
 
 .#{$class} {
-  height: 150px;
-  width: 150px;
-  float: left;
-  border: 2px solid #666666;
-  background-color: #ccc;
-  margin-right: 5px;
-  border-radius: 10px;
-  box-shadow: inset 0 0 3px #000;
-  text-align: center;
+  height: 50px;
+  width: 200px;
+  line-height: 50px;
+  padding-left: 20px;
+  border: 1px solid #C0C0C0;
+  background: #EEE none repeat scroll 0% 0%;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0px;
+  left: 0px;
   cursor: move;
-
-  header {
-    color: #fff;
-    text-shadow: #000 0 1px;
-    box-shadow: 5px;
-    padding: 5px;
-    background: linear-gradient(rgb(0,0,0), rgb(79,79,79));
-    border-bottom: 1px solid #ddd;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-  }
+  transition: all 0.2s ease-out 0s;
 
   &.placeholder {
     border: 1px solid #fcefa1;
     background: #fbf9ee;
     color: #363636;
-
-    header {
-      display: none;
-    }
   }
 
   &.dragging {
     border: 1px solid #fcefa1;
     background: #fbf9ee;
     color: #363636;
-
-    header {
-      display: none;
-    }
   }
 }

@@ -18,11 +18,12 @@
 
 ```
 - cd to project directory
-- webpack --watch
-- http-server
+- npm run watch
+- npm run start
 ```
 
 ### References
+- http://blog.stevensanderson.com/2013/03/15/animating-lists-with-css-3-transitions/
 - http://www.jbrantly.com/es6-modules-with-typescript-and-webpack/
 
 
@@ -37,4 +38,4 @@ import { someProp } from 'someLib'; // this will also work
 
 ### Demo
 
-![Demo Image](https://nq33jw.blu.livefilestore.com/y3mFFUX2ALJ03s7zUZ6E9BO31rIWQKhJW5Zc0fXtUhHxUz-QfIooyJPA4lmWjgMIN2_BKWy5iZy1Ao5RHQ-s5E-Jq95ag0U6QGF21cVlvb__JpQ731iE_joJhSkl-W930bCEybFsPdKX5boYjn_NO_YsXgVb1ucsf2Zssph0ztn4iQ/simple-animation.gif?psid=1)
+![Demo Image](https://nq36jw-bn1305.files.1drv.com/y3mrlOckMVow1slPv5NeJw3bHdBfSSxNMl7UqmGLCGRd2NF8sLFmKl_BbwFjLdi2uaAbZPEwFrB_58p8E4h8I4APuyHkk8Sjv_ipRWCaYtrG7Rc_o0DfcUyarxoku9a8J0kSdG3Il9nQyo4hRQFuFi4fZqyHG2fRnKzz6CyMTbEb7k/drag-drop-animation.gif?psid=1)
