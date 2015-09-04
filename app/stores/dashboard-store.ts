@@ -39,6 +39,7 @@ class DashboardStore extends BaseStore {
     this._products = this._products.splice(action.fromIndex, 1);
     this._products = this._products.splice(action.toIndex, 0, fromProduct);
 
+
     this.emitChange();
   }
 }

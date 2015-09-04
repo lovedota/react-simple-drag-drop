@@ -16,6 +16,7 @@ class DashboardBasketComponent extends React.Component<Props, State> {
 
   constructor(props) {
       super(props);
+
       this.state = {
         left: 0
       }
@@ -35,7 +36,7 @@ class DashboardBasketComponent extends React.Component<Props, State> {
 	}
 
   private handleDrop = (e) => {
-  	var id = e.dataTransfer.getData('id');
+  	let id = e.dataTransfer.getData('id');
     console.log(e.dataTransfer.getData('id'));
   }
 

@@ -26,11 +26,11 @@ class DashboardPageComponent extends React.Component<Props, State> {
   }
 
   componentWillUnmount() {
-    DashboardStore.removeChangeListener(this._onChange);
+    DashboardStore.removeChangeListener(this.onChange);
   }
 
   componentDidMount() {
-    DashboardStore.addChangeListener(this._onChange);
+    DashboardStore.addChangeListener(this.onChange);
   }
 
   render() {
@@ -47,7 +47,7 @@ class DashboardPageComponent extends React.Component<Props, State> {
 
   }
 
-  _onChange = () => {
+  private onChange = () => {
     this.setState(getStateFromStores());
   }
 }
