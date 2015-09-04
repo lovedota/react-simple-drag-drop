@@ -10,32 +10,12 @@ interface DashboardAction {
   type: string;
   products?: Product[];
   productId?: string;
-  fromProductId?: string;
-  toProductId?: string;
-}
-
-function createListStyles(products: Product[], rows, cols) {
-    var rules = [],
-        index = 0;
-
-    for (var rowIndex = 0; rowIndex < rows; rowIndex++) {
-        for (var colIndex = 0; colIndex < cols; colIndex++) {
-            var x = (colIndex * 100) + "%",
-                y = (rowIndex * 100) + "%",
-                transforms = {
-                  'WebkitTransform': `translate3d(${x}, ${y}, 0)`,
-                  'transform': `translate3d(${x}, ${y}, 0)`
-                };
-
-            products[rowIndex * colIndex]['styles'] = transforms;
-        }
-    }
-
-    return Immutable.List<Product>(products);
+  fromIndex?: number;
+  toIndex?: number;
 }
 
 class DashboardStore extends BaseStore {
-  private _products:  Immutable.IndexedIterable<Product>;
+  private _products:  Immutable.IndexedIterable<Product> = Immutable.List<Product>();
 
   constructor() {
     super(DashboardConstants.DASHBOARD_CHANGE_EVENT);
@@ -54,14 +34,10 @@ class DashboardStore extends BaseStore {
 
   @handle(DashboardConstants.DASHBOARD_DRAG_ENTER)
   private changeProductsPosition(action: DashboardAction) {
-    let fromProduct = this._products.find(p => p.id === action.fromProductId),
-      fromProductIndex = this._products.indexOf(fromProduct),
-      toProductIndex =  this._products.findIndex(p => p.id === action.toProductId);
+    let fromProduct = this._products.get(action.fromIndex);
 
-    this._products = this._products.splice(fromProductIndex, 1);
-    this._products = this._products.splice(toProductIndex, 0, fromProduct);
-
-    this._products = createListStyles(this._products.toArray(), 3, 2);
+    this._products = this._products.splice(action.fromIndex, 1);
+    this._products = this._products.splice(action.toIndex, 0, fromProduct);
 
     this.emitChange();
   }

@@ -1,5 +1,5 @@
 declare module ReactMotion {
-  export class Spring {
+  export class Spring extends React.Component<any,any> {
 
   }
 }

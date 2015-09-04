@@ -11,10 +11,11 @@ interface Props extends React.Props<any> {
 }
 
 interface State {
-  delta: number;
-  mouse: number;
-  isPressed: boolean;
-  lastPressed: number;
+  delta?: number;
+  mouse?: number;
+  isPressed?: boolean;
+  lastPressed?: number;
+  products?: any;
 }
 
 function range(count) {
@@ -28,6 +29,17 @@ function clamp(n, min, max) {
 const springConfig = [300, 50];
 const itemsCount = 4;
 
+function reinsert(arr, from, to) {
+  const _arr = arr.slice(0);
+  const val = _arr[from];
+  _arr.splice(from, 1);
+  _arr.splice(to, 0, val);
+  return _arr;
+}
+
+//This is used for keep the old products state
+let _defaultProducts: Product[] = [];
+
 class DashboardProductListComponent extends React.Component<Props, State> {
   static displayName = "DashboardProductListComponent";
   constructor(props) {
@@ -37,8 +49,11 @@ class DashboardProductListComponent extends React.Component<Props, State> {
       delta: 0,
       mouse: 0,
       isPressed: false,
-      lastPressed: 0
+      lastPressed: 0,
+      products: this.props.products
     }
+
+    _defaultProducts = this.props.products;
   }
   componentDidMount() {
     window.addEventListener('touchmove', this.handleTouchMove);
@@ -48,45 +63,63 @@ class DashboardProductListComponent extends React.Component<Props, State> {
   }
 
 	render() {
-    //https://raw.githubusercontent.com/chenglou/react-motion/master/demos/demo8/Demo.jsx
-    let rows = [],
-      endValue = range(itemsCount).map(i => {
-        if (lastPressed === i && isPressed) {
-          return {
-            scale: {val: 1.1, config: springConfig},
-            shadow: {val: 16, config: springConfig},
-            y: {val: mouse, config: []},
-          };
-        }
-        return {
-          scale: {val: 1, config: springConfig},
-          shadow: {val: 1, config: springConfig},
-          y: {val: order.indexOf(i) * 100, config: springConfig},
-        };
-      });
+    let {delta, mouse, isPressed, lastPressed, products} = this.state,
 
-    this.props.products.forEach(product => {
-      rows.push(<DashboardProductItem product={product} key={product.id}/>);
+    endValue = _defaultProducts.map((product, index) => {
+      if (lastPressed === index && isPressed) {
+        return {
+          scale: {val: 1.1, config: springConfig},
+          shadow: {val: 16, config: springConfig},
+          y: {val: mouse, config: []},
+        };
+      }
+
+      return {
+        scale: {val: 1, config: springConfig},
+        shadow: {val: 1, config: springConfig},
+        y: {val: products.indexOf(product) * 100, config: springConfig},
+        product: product
+      };
     });
 
+    console.log(products);
+
     return (
-      <div className="dashboard-product-list columns">
-        {rows}
-      </div>
+      <Spring endValue={endValue} className="dashboard-product-list columns">
+       {items =>
+         <div className="demo8">
+           {items.map(({scale, shadow, y, product}, n) =>
+             <div
+               key={n}
+               className="demo8-item"
+               onMouseDown={this.handleMouseDown.bind(null, n, y.val)}
+               onTouchStart={this.handleTouchStart.bind(null, n, y.val)}
+               style={{
+                 boxShadow: `rgba(0, 0, 0, 0.2) 0px ${shadow.val}px ${2 * shadow.val}px 0px`,
+                 transform: `translate3d(0, ${y.val}px, 0) scale(${scale.val})`,
+                 WebkitTransform: `translate3d(0, ${y.val}px, 0) scale(${scale.val})`,
+                 zIndex: n === lastPressed ? 99 : n,
+               }}>
+                {product.name}
+             </div>
+           )}
+         </div>
+       }
+     </Spring>
     );
 	}
 
 
-  private handleTouchStart(key, pressLocation, e) {
+  private handleTouchStart = (key, pressLocation, e) => {
     this.handleMouseDown(key, pressLocation, e.touches[0]);
   }
 
-  private handleTouchMove(e) {
+  private handleTouchMove = (e) => {
     e.preventDefault();
     this.handleMouseMove(e.touches[0]);
   }
 
-  private handleMouseDown(pos, pressY, {pageY}) {
+  private handleMouseDown = (pos, pressY, {pageY}) => {
     this.setState({
       delta: pageY - pressY,
       mouse: pressY,
@@ -95,17 +128,20 @@ class DashboardProductListComponent extends React.Component<Props, State> {
     });
   }
 
-  private handleMouseMove({pageY}) {
-    const {isPressed, delta, order, lastPressed} = this.state;
+  private handleMouseMove = ({pageY}) => {
+    let {isPressed, delta, lastPressed, products} = this.state;
+
     if (isPressed) {
-      const mouse = pageY - delta;
-      const row = clamp(Math.round(mouse / 100), 0, itemsCount - 1);
-      const newOrder = reinsert(order, order.indexOf(lastPressed), row);
-      this.setState({mouse: mouse, order: newOrder});
+      let mouse = pageY - delta,
+       toIndex = clamp(Math.round(mouse / 100), 0, itemsCount - 1);
+
+      DashboardActions.moveProduct(lastPressed, toIndex);
+      // const newProducts = reinsert(products, products.indexOf(lastPressed), row);
+      // this.setState({mouse: mouse, products: newProducts});
     }
   }
 
-  handleMouseUp() {
+  handleMouseUp = () => {
     this.setState({isPressed: false, delta: 0});
   }
 }

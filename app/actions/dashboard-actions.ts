@@ -11,11 +11,11 @@ class DashboardActions {
     });
   }
 
-  moveProduct(fromProductId: string, toProductId: string) {
+  moveProduct(fromIndex: number, toIndex: number) {
     Dispatcher.dispatch({
       type: DashboardConstants.DASHBOARD_DRAG_ENTER,
-      fromProductId,
-      toProductId
+      fromIndex,
+      toIndex
     });
   }
 

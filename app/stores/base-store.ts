@@ -10,18 +10,20 @@ class BaseStore extends EventEmitter {
   static handlers = new Map();
 
   changeEventName:string;
+  dispatchToken: string;
+  className: string;
 
   constructor(changeEventName) {
     super();
 
     this.changeEventName = changeEventName;
 
-    let self = this;
+    this.dispatchToken = Dispatcher.register((action: Action) => {
+      let handlerName = `${this.className}__${action.type}`;
 
-    Dispatcher.register((action: Action) => {
-      if (BaseStore.handlers.has(action.type)) {
-        let func: Function = BaseStore.handlers.get(action.type);
-        func.apply(this, [action]);
+      if (BaseStore.handlers.has(handlerName)) {
+        let handlerFunction: Function = BaseStore.handlers.get(handlerName);
+        handlerFunction.apply(this, [action]);
       }
     });
   }
@@ -39,7 +41,13 @@ class BaseStore extends EventEmitter {
   }
 
   register(eventName, handler) {
-    BaseStore.handlers.set(eventName, handler);
+    var funcNameRegex = /function (.{1,})\(/,
+        results = (funcNameRegex).exec((this).constructor.toString()),
+        className = (results && results.length > 1) ? results[1] : "";
+
+    this.className = className;
+
+    BaseStore.handlers.set(`${className}__${eventName}`, handler);
   }
 }
 
