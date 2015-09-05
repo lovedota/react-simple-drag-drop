@@ -26,11 +26,9 @@ class DashboardActions {
     });
   }
 
-  mouseChange(pageX, pageY) {
+  shuffleProducts() {
     Dispatcher.dispatch({
-      type: DashboardConstants.DASHBOARD_MOUSE_CHANGE,
-      pageX,
-      pageY
+      type: DashboardConstants.DASHBOARD_SHUFFLE_PRODUCTS,
     });
   }
 }

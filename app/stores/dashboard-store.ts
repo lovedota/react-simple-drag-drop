@@ -23,7 +23,6 @@ const
 
 class DashboardStore extends BaseStore {
   private _products:  Immutable.IndexedIterable<Product> = Immutable.List<Product>();
-  private _mousePosition: any;
 
   constructor() {
     super(DashboardConstants.DASHBOARD_CHANGE_EVENT);
@@ -31,10 +30,6 @@ class DashboardStore extends BaseStore {
 
   get products() {
     return this._products.toArray();
-  }
-
-  get mousePosition() {
-    return this._mousePosition;
   }
 
   @handle(DashboardConstants.DASHBOARD_LOAD_COMPLETE)
@@ -68,22 +63,17 @@ class DashboardStore extends BaseStore {
 
   @handle(DashboardConstants.DASHBOARD_REMOVE_PRODUCT)
   private removeProduct(action: DashboardAction) {
-    let productIndex = this._products.findIndex(p => p.id === action.productId),
-      orderProducts,
-      product;
+    let removedProduct = this._products.find(p => p.id === action.productId);
 
     //1. Remove product
-    this._products = this._products.splice(productIndex, 1);
+    this._products = this._products.splice(this._products.indexOf(removedProduct), 1);
 
     //2. Refresh the order
-    orderProducts =  this._products.sortBy(p => p.order);
-
-    for (let i = productIndex; i < orderProducts.size; i++) {
-      product = orderProducts.get(i);
-      product.order = product.order - 1;
-    }
-
-    this._products = orderProducts;
+    this._products.forEach(p => {
+      if (p.order >= removedProduct.order) {
+        p.order = p.order - 1;
+      }
+    });
 
     //3. Make move animation
     this.createListStyles();
@@ -91,12 +81,31 @@ class DashboardStore extends BaseStore {
     this.emitChange();
   }
 
-  @handle(DashboardConstants.DASHBOARD_MOUSE_CHANGE)
-  private mousePositionChange(action: DashboardAction) {
-    this._mousePosition = {
-      pageX: action.pageX,
-      pageY: action.pageY
+  @handle(DashboardConstants.DASHBOARD_SHUFFLE_PRODUCTS)
+  private shuffleProducts() {
+    var array = this._products,
+      currentIndex = array.size,
+      temporaryValue,
+      randomIndex,
+      randomItem,
+      currentItem;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      currentItem = array.find(p => p.order === currentIndex);
+      randomItem = array.find(p => p.order === randomIndex);
+      // And swap it with the current element.
+      temporaryValue = currentItem.order;
+      currentItem.order = randomIndex;
+      randomItem.order = temporaryValue;
     }
+
+    //3. Make move animation
+    this.createListStyles();
 
     this.emitChange();
   }
@@ -104,7 +113,7 @@ class DashboardStore extends BaseStore {
   private createListStyles() {
     let totalProducts = this._products.size,
       cols = Math.floor(LIST_WIDTH / ITEM_WIDTH),
-      rows = Math.round(totalProducts / cols),
+      rows = Math.ceil(totalProducts / cols),
       index = 0,
       product;
 

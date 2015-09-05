@@ -36,12 +36,13 @@ class DashboardProductItemComponent extends React.Component<Props, State> {
         className={cssClasses}
         draggable={true}
         onDragEnter={this.handleDragEnter}
-        onDragOver={this.handleDragOver}
-        onDragLeave={this.handleDragLeave}
         onDragStart={this.handleDragStart}
         onDragEnd={this.handleDragEnd}
      >
         {product.name}
+        <a onClick={this.handleClick}>
+          <span className="glyphicon glyphicon-remove"></span>
+        </a>
       </li>
     );
 	}
@@ -55,16 +56,9 @@ class DashboardProductItemComponent extends React.Component<Props, State> {
     }
   }
 
-  private handleDragLeave = (e: React.DragEvent) => {
-
-  }
-
-  private handleDragOver = (e: any) => {
-    let dragX = e.pageX,
-      dragY = e.pageY;
-
-    console.log(e.target.getBoundingClientRect());
-    DashboardActions.mouseChange(dragX, dragY);
+  private handleClick = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    DashboardActions.removeProduct(this.props.product.id);
   }
 
   private handleDragStart = (e: React.DragEvent) => {

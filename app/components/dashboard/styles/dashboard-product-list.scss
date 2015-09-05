@@ -8,5 +8,11 @@ $class: dashboard-product-list;
   height: 220px;
   overflow-y: auto;
   overflow-x: hidden;
-  width: 600px;
+  width: 620px;
+  
+  a {
+    cursor: pointer;
+    position: absolute;
+    right: 3px;
+  }
 }

@@ -36,6 +36,7 @@
         "./typings/flux/flux.d.ts",
         "./typings/tsd.d.ts",
         "./app/components/common/bootstrap-modal.tsx",
+        "./app/components/dashboard/dashboard-action-buttons.tsx",
         "./app/components/dashboard/dashboard-basket.tsx",
         "./app/components/dashboard/dashboard-page.tsx",
         "./app/components/dashboard/dashboard-product-item.tsx",

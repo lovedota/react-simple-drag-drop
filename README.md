@@ -38,4 +38,4 @@ import { someProp } from 'someLib'; // this will also work
 
 ### Demo
 
-![Demo Image](https://nq36jw-bn1305.files.1drv.com/y3mrlOckMVow1slPv5NeJw3bHdBfSSxNMl7UqmGLCGRd2NF8sLFmKl_BbwFjLdi2uaAbZPEwFrB_58p8E4h8I4APuyHkk8Sjv_ipRWCaYtrG7Rc_o0DfcUyarxoku9a8J0kSdG3Il9nQyo4hRQFuFi4fZqyHG2fRnKzz6CyMTbEb7k/drag-drop-animation.gif?psid=1)
+![Demo Image](https://nq37jw-bn1305.files.1drv.com/y3mW3vJ845Nqc7r9Ewndxjobplaniz0AGlmijPwwnV379WadkltI3e-6veH6uN_tjQ4r1u_wke6vvPgvQxuqoZmv4XJpXmHQ8g3nLGQhWwhDvm-FH8egvjIY-Y3MwpguRHsag-tWjpGeQegJzIdtm3Q2KCj3ZomGQvl04SwISpE3Bc/react-drag-drop.gif?psid=1)

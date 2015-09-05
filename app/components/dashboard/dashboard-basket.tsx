@@ -9,7 +9,7 @@ interface Props extends React.Props<any> {
 }
 
 interface State {
-
+  isEnter: boolean;
 }
 
 class DashboardBasketComponent extends React.Component<Props, State> {
@@ -17,11 +17,20 @@ class DashboardBasketComponent extends React.Component<Props, State> {
 
   constructor(props) {
     super(props);
+    
+    this.state = {
+      isEnter: false
+    }
   }
 
 	render() {
+    let cssClasses = classNames('dashboard-basket', {
+      'enter': this.state.isEnter
+    });
+    
     return (
-      <div className="dashboard-basket"
+      <div 
+         className={cssClasses}
          onDrop={this.handleDrop}
          onDragEnter={this.handleDragEnter}
          onDragLeave={this.handleDragLeave}
@@ -35,19 +44,19 @@ class DashboardBasketComponent extends React.Component<Props, State> {
   private handleDrop = (e) => {
   	let id = e.dataTransfer.getData('id');
     DashboardActions.removeProduct(id);
+    this.setState({isEnter: false});
   }
 
-  private handleDragEnter(e) {
-    e.target.style.border = "3px dotted red";
+  private handleDragEnter = (e) => {
+    this.setState({isEnter: true});
   }
 
-  private handleDragLeave(e) {
-    e.target.style.border = "2px dashed #0087F7";
+  private handleDragLeave = (e) => {
+    this.setState({isEnter: false});
   }
 
   private handleDragOver(e) {
     e.preventDefault();
-    e.target.style.border = "2px dashed #0087F7";
     e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
   }
 }
