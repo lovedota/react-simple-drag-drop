@@ -39,6 +39,10 @@ class BaseStore extends EventEmitter {
   emitChange() {
     this.emit(this.changeEventName);
   }
+  
+  waitFor(tokens) {
+    Dispatcher.waitFor(tokens);
+  }
 
   register(eventName, handler) {
     var funcNameRegex = /function (.{1,})\(/,

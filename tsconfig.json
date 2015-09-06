@@ -23,6 +23,7 @@
         "./app/services/dashboard-services.ts",
         "./app/stores/base-store.ts",
         "./app/stores/dashboard-store.ts",
+        "./app/stores/product-store.ts",
         "./interfaces/classnames.d.ts",
         "./interfaces/events.d.ts",
         "./interfaces/jquery.d.ts",

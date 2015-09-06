@@ -1,7 +1,6 @@
-/// <reference path="../../typings/tsd.d.ts"/>
-
 import * as Immutable     from 'immutable';
 import BaseStore          from './base-store';
+import ProductStore       from './product-store';
 import Dispatcher         from '../cores/dispatcher';
 import DashboardConstants from '../constants/dashboard-constants';
 import handle             from '../decorators/handle-decorator';
@@ -12,8 +11,6 @@ interface DashboardAction {
   productId?: string;
   fromProductId?: string;
   toProductId?: string;
-  pageX?: number;
-  pageY?: number;
 }
 
 const
@@ -34,6 +31,8 @@ class DashboardStore extends BaseStore {
 
   @handle(DashboardConstants.DASHBOARD_LOAD_COMPLETE)
   private convertProductsToViewModel(action: DashboardAction) {
+    this.waitFor([ProductStore.dispatchToken]);
+    console.log('Handle action "DashboardConstants.DASHBOARD_LOAD_COMPLETE" from DashboardStore');
     this._products = Immutable.List<Product>(action.products.map((product: Product, index: number) => {
       product.order = index;
       product.styles = {};
