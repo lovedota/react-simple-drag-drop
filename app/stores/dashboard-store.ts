@@ -79,6 +79,24 @@ class DashboardStore extends BaseStore {
 
     this.emitChange();
   }
+  
+  @handle(DashboardConstants.DASHBOARD_ADD_PRODUCT)
+  private addProduct(action: DashboardAction) {
+    let newProduct: Product = {
+      id: Math.random().toString(),
+      name: `Product ${this._products.size + 1}`,
+      price: Math.floor(Math.random() * (1000 - 10)) + 10,
+      order: this._products.size
+    };
+
+    //1. Add product
+    this._products = this._products.push(newProduct);
+
+    //2. Make move animation
+    this.createListStyles();
+
+    this.emitChange();
+  }
 
   @handle(DashboardConstants.DASHBOARD_SHUFFLE_PRODUCTS)
   private shuffleProducts() {

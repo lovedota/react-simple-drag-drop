@@ -25,6 +25,13 @@ class DashboardActions {
       productId
     });
   }
+  
+  
+  addProduct() {
+    Dispatcher.dispatch({
+      type: DashboardConstants.DASHBOARD_ADD_PRODUCT,
+    });
+  }
 
   shuffleProducts() {
     Dispatcher.dispatch({

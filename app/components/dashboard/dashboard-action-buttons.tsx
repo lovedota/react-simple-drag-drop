@@ -21,14 +21,19 @@ class DashboardActionButtonsComponent extends React.Component<Props, State> {
 
 	render() {
     return (
-      <p>
-        <button className="btn" onClick={this.handleClick}>Shuffle</button>
-      </p>
+      <div className="btn-group">
+        <button className="btn btn-primary" onClick={this.handleAddNewClick}>Add New</button>
+        <button className="btn" onClick={this.handleShuffleClick}>Shuffle</button>
+      </div>
     );
 	}
 
-  private handleClick = (e) => {
+  private handleShuffleClick = (e) => {
     DashboardActions.shuffleProducts();
+  }
+  
+  private handleAddNewClick = (e) => {
+    DashboardActions.addProduct();
   }
 }
 
