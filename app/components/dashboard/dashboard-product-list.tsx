@@ -1,10 +1,9 @@
 import './styles/dashboard-product-list.scss';
 
-import * as React from 'react';
+import React from 'react';
 import classNames from "classnames";
 import DashboardProductItem from './dashboard-product-item';
 import DashboardActions from '../../actions/dashboard-actions';
-import {Spring} from 'react-motion';
 
 interface Props extends React.Props<any> {
   products: Product[];

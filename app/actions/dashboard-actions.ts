@@ -1,13 +1,14 @@
-import Dispatcher         from '../cores/dispatcher';
-import DashboardConstants from '../constants/dashboard-constants';
-import DashboardService   from '../services/dashboard-services';
-import DashboardStore     from '../stores/dashboard-store';
+import Dispatcher from "../cores/dispatcher";
+import DashboardConstants from "../constants/dashboard-constants";
+import DashboardService from "../services/dashboard-services";
 
 class DashboardActions {
-  getProducts() {
+  async getProducts() {
+    let products = await DashboardService.getProducts();
+
     Dispatcher.dispatch({
       type: DashboardConstants.DASHBOARD_LOAD_COMPLETE,
-      products: DashboardService.getProducts()
+      products: products
     });
   }
 
@@ -25,17 +26,16 @@ class DashboardActions {
       productId
     });
   }
-  
-  
+
   addProduct() {
     Dispatcher.dispatch({
-      type: DashboardConstants.DASHBOARD_ADD_PRODUCT,
+      type: DashboardConstants.DASHBOARD_ADD_PRODUCT
     });
   }
 
   shuffleProducts() {
     Dispatcher.dispatch({
-      type: DashboardConstants.DASHBOARD_SHUFFLE_PRODUCTS,
+      type: DashboardConstants.DASHBOARD_SHUFFLE_PRODUCTS
     });
   }
 }

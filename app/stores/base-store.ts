@@ -1,5 +1,5 @@
-import {EventEmitter} from 'events';
-import Dispatcher     from '../cores/dispatcher';
+import {EventEmitter} from "events";
+import Dispatcher from "../cores/dispatcher";
 
 interface Action {
   type: string;
@@ -8,8 +8,7 @@ interface Action {
 class BaseStore extends EventEmitter {
 
   static handlers = new Map();
-
-  changeEventName:string;
+  changeEventName: string;
   dispatchToken: string;
   className: string;
 
@@ -39,13 +38,13 @@ class BaseStore extends EventEmitter {
   emitChange() {
     this.emit(this.changeEventName);
   }
-  
+
   waitFor(tokens) {
     Dispatcher.waitFor(tokens);
   }
 
   register(eventName, handler) {
-    var funcNameRegex = /function (.{1,})\(/,
+    let funcNameRegex = /function (.{1,})\(/,
         results = (funcNameRegex).exec((this).constructor.toString()),
         className = (results && results.length > 1) ? results[1] : "";
 

@@ -1,9 +1,9 @@
-import * as React           from 'react';
-import logClass             from '../../decorators/log-class-decorator';
+import React from 'react';
+import logClass from '../../decorators/log-class-decorator';
 import DashboardProductList from './dashboard-product-list';
 import DashboardActionButtons from './dashboard-action-buttons';
-import DashboardBasket      from './dashboard-basket';
-import DashboardStore       from '../../stores/dashboard-store';
+import DashboardBasket from './dashboard-basket';
+import DashboardStore from '../../stores/dashboard-store';
 
 interface Props {
 

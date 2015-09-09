@@ -1,7 +1,7 @@
 import './styles/dashboard-product-item.scss';
 
-import * as React       from 'react';
-import classNames       from "classnames";
+import React from 'react';
+import classNames from "classnames";
 import DashboardActions from '../../actions/dashboard-actions';
 
 interface Props extends React.Props<any> {

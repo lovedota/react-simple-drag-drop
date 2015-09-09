@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import * as React from 'react';
+import React from 'react';
 import 'bootstrap-sass';
 
 interface Props extends React.Props<any> {

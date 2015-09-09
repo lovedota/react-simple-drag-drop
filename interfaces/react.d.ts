@@ -786,5 +786,5 @@ declare module React {
 }
 
 declare module "react" {
-    export = React;
+    export default React;
 }

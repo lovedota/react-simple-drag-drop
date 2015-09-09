@@ -1,6 +1,6 @@
 import './styles/dashboard-basket.scss';
 
-import * as React from 'react';
+import React from 'react';
 import classNames from "classnames";
 import DashboardActions from '../../actions/dashboard-actions';
 
@@ -17,7 +17,7 @@ class DashboardBasketComponent extends React.Component<Props, State> {
 
   constructor(props) {
     super(props);
-    
+
     this.state = {
       isEnter: false
     }
@@ -27,9 +27,9 @@ class DashboardBasketComponent extends React.Component<Props, State> {
     let cssClasses = classNames('dashboard-basket', {
       'enter': this.state.isEnter
     });
-    
+
     return (
-      <div 
+      <div
          className={cssClasses}
          onDrop={this.handleDrop}
          onDragEnter={this.handleDragEnter}
@@ -55,9 +55,10 @@ class DashboardBasketComponent extends React.Component<Props, State> {
     this.setState({isEnter: false});
   }
 
-  private handleDragOver(e) {
+  private handleDragOver = (e) => {
     e.preventDefault();
     e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
+    this.setState({isEnter: true});
   }
 }
 

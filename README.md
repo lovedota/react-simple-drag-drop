@@ -1,3 +1,7 @@
+### Demo
+
+![Demo Image](https://nq37jw-bn1305.files.1drv.com/y3mW3vJ845Nqc7r9Ewndxjobplaniz0AGlmijPwwnV379WadkltI3e-6veH6uN_tjQ4r1u_wke6vvPgvQxuqoZmv4XJpXmHQ8g3nLGQhWwhDvm-FH8egvjIY-Y3MwpguRHsag-tWjpGeQegJzIdtm3Q2KCj3ZomGQvl04SwISpE3Bc/react-drag-drop.gif?psid=1)
+
 ### Description
 
 - This is my demo for simple animation *height, new-item*.
@@ -25,7 +29,7 @@
 ### References
 - http://blog.stevensanderson.com/2013/03/15/animating-lists-with-css-3-transitions/
 - http://www.jbrantly.com/es6-modules-with-typescript-and-webpack/
-
+- https://github.com/Microsoft/TypeScript/wiki/Coding-guidelines
 
 ### Notes
 
@@ -35,7 +39,3 @@ import * as someLib from 'someLib'; // this will work
 import { someProp } from 'someLib'; // this will also work  
 
 ```
-
-### Demo
-
-![Demo Image](https://nq37jw-bn1305.files.1drv.com/y3mW3vJ845Nqc7r9Ewndxjobplaniz0AGlmijPwwnV379WadkltI3e-6veH6uN_tjQ4r1u_wke6vvPgvQxuqoZmv4XJpXmHQ8g3nLGQhWwhDvm-FH8egvjIY-Y3MwpguRHsag-tWjpGeQegJzIdtm3Q2KCj3ZomGQvl04SwISpE3Bc/react-drag-drop.gif?psid=1)

@@ -12,6 +12,12 @@ module.exports = {
         filename: 'scripts.js'
     },
     module: {
+        // preLoaders: [ //Will uncomment when tslint support typescript 1.6
+        //     {
+        //         test: /\.ts$/,
+        //         loader: "tslint"
+        //     }
+        // ],
         loaders: [
             {
                test: /\.ts(x?)$/,

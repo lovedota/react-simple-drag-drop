@@ -1,6 +1,6 @@
 import './styles/dashboard-basket.scss';
 
-import * as React from 'react';
+import React from 'react';
 import classNames from "classnames";
 import DashboardActions from '../../actions/dashboard-actions';
 
@@ -31,7 +31,7 @@ class DashboardActionButtonsComponent extends React.Component<Props, State> {
   private handleShuffleClick = (e) => {
     DashboardActions.shuffleProducts();
   }
-  
+
   private handleAddNewClick = (e) => {
     DashboardActions.addProduct();
   }

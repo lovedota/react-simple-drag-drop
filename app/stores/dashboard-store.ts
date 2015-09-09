@@ -1,9 +1,8 @@
-import * as Immutable     from 'immutable';
-import BaseStore          from './base-store';
-import ProductStore       from './product-store';
-import Dispatcher         from '../cores/dispatcher';
-import DashboardConstants from '../constants/dashboard-constants';
-import handle             from '../decorators/handle-decorator';
+import * as Immutable from "immutable";
+import BaseStore from "./base-store";
+import ProductStore from "./product-store";
+import DashboardConstants from "../constants/dashboard-constants";
+import handle from "../decorators/handle-decorator";
 
 interface DashboardAction {
   type: string;
@@ -19,7 +18,7 @@ const
 
 
 class DashboardStore extends BaseStore {
-  private _products:  Immutable.IndexedIterable<Product> = Immutable.List<Product>();
+  private _products:  Immutable.List<Product> = Immutable.List<Product>();
 
   constructor() {
     super(DashboardConstants.DASHBOARD_CHANGE_EVENT);
@@ -32,7 +31,7 @@ class DashboardStore extends BaseStore {
   @handle(DashboardConstants.DASHBOARD_LOAD_COMPLETE)
   private convertProductsToViewModel(action: DashboardAction) {
     this.waitFor([ProductStore.dispatchToken]);
-    console.log('Handle action "DashboardConstants.DASHBOARD_LOAD_COMPLETE" from DashboardStore');
+    console.log("Handle action 'DashboardConstants.DASHBOARD_LOAD_COMPLETE' from DashboardStore");
     this._products = Immutable.List<Product>(action.products.map((product: Product, index: number) => {
       product.order = index;
       product.styles = {};
@@ -64,22 +63,22 @@ class DashboardStore extends BaseStore {
   private removeProduct(action: DashboardAction) {
     let removedProduct = this._products.find(p => p.id === action.productId);
 
-    //1. Remove product
-    this._products = this._products.splice(this._products.indexOf(removedProduct), 1);
+    // 1. Remove product
+    this._products = this._products.remove(this._products.indexOf(removedProduct));
 
-    //2. Refresh the order
+    // 2. Refresh the order
     this._products.forEach(p => {
       if (p.order >= removedProduct.order) {
         p.order = p.order - 1;
       }
     });
 
-    //3. Make move animation
+    // 3. Make move animation
     this.createListStyles();
 
     this.emitChange();
   }
-  
+
   @handle(DashboardConstants.DASHBOARD_ADD_PRODUCT)
   private addProduct(action: DashboardAction) {
     let newProduct: Product = {
@@ -89,10 +88,10 @@ class DashboardStore extends BaseStore {
       order: this._products.size
     };
 
-    //1. Add product
+    // 1. Add product
     this._products = this._products.push(newProduct);
 
-    //2. Make move animation
+    // 2. Make move animation
     this.createListStyles();
 
     this.emitChange();
@@ -100,28 +99,28 @@ class DashboardStore extends BaseStore {
 
   @handle(DashboardConstants.DASHBOARD_SHUFFLE_PRODUCTS)
   private shuffleProducts() {
-    var array = this._products,
+    let array = this._products,
       currentIndex = array.size,
       temporaryValue,
       randomIndex,
       randomItem,
       currentItem;
 
-    // While there remain elements to shuffle...
+    // 1. While there remain elements to shuffle...
     while (0 !== currentIndex) {
-      // Pick a remaining element...
+      // pick a remaining element...
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex -= 1;
 
       currentItem = array.find(p => p.order === currentIndex);
       randomItem = array.find(p => p.order === randomIndex);
-      // And swap it with the current element.
+      // and swap it with the current element.
       temporaryValue = currentItem.order;
       currentItem.order = randomIndex;
       randomItem.order = temporaryValue;
     }
 
-    //3. Make move animation
+    // 2. Make move animation
     this.createListStyles();
 
     this.emitChange();
@@ -139,8 +138,8 @@ class DashboardStore extends BaseStore {
             let x = (colIndex * 100) + "%",
               y = (rowIndex * 100) + "%",
               transforms = {
-                'WebkitTransform': `translate3d(${x}, ${y}, 0)`,
-                'transform': `translate3d(${x}, ${y}, 0)`
+                "WebkitTransform": `translate3d(${x}, ${y}, 0)`,
+                "transform": `translate3d(${x}, ${y}, 0)`
               };
 
             if (index <= this._products.size - 1) {

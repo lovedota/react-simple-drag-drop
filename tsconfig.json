@@ -5,6 +5,7 @@
         "target": "es6",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
+        "experimentalAsyncFunctions": true,
         "jsx": "react"
     },
     "filesGlob": [
@@ -24,6 +25,7 @@
         "./app/stores/base-store.ts",
         "./app/stores/dashboard-store.ts",
         "./app/stores/product-store.ts",
+        "./interfaces/bootstrap.d.ts",
         "./interfaces/classnames.d.ts",
         "./interfaces/events.d.ts",
         "./interfaces/jquery.d.ts",
@@ -33,7 +35,6 @@
         "./interfaces/react-motion.d.ts",
         "./interfaces/react-tween-state.d.ts",
         "./interfaces/react.d.ts",
-        "./typings/bootstrap/bootstrap.d.ts",
         "./typings/flux/flux.d.ts",
         "./typings/tsd.d.ts",
         "./app/components/common/bootstrap-modal.tsx",
@@ -43,5 +44,8 @@
         "./app/components/dashboard/dashboard-product-item.tsx",
         "./app/components/dashboard/dashboard-product-list.tsx",
         "./app/main.tsx"
+    ],
+    "exclude": [
+        "node_modules"
     ]
 }
