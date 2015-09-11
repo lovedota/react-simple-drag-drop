@@ -24,7 +24,7 @@ class DashboardProductItemComponent extends React.Component<Props, State> {
   }
 
 	render() {
-    let isDragging = this.state.isDragging,
+    let {isDragging} = this.state,
       {product} = this.props,
       cssClasses = classNames('dashboard-product-item', {
         'dragging': isDragging

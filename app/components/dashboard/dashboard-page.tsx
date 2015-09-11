@@ -46,7 +46,6 @@ class DashboardPageComponent extends React.Component<Props, State> {
         </div>
        </div>
      );
-
   }
 
   private onChange = () => {

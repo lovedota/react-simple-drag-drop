@@ -4,7 +4,7 @@ class DashboardService {
   async getProducts(): Promise<Product[]> {
     let products: Product[] = [];
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 12; i++) {
       products.push({
       	id: i.toString(),
         name: `Product ${i + 1}`,

@@ -23,7 +23,7 @@ class DashboardActionButtonsComponent extends React.Component<Props, State> {
     return (
       <div className="btn-group">
         <button className="btn btn-primary" onClick={this.handleAddNewClick}>Add New</button>
-        <button className="btn" onClick={this.handleShuffleClick}>Shuffle</button>
+        <button className="btn btn-default" onClick={this.handleShuffleClick}>Shuffle</button>
       </div>
     );
 	}

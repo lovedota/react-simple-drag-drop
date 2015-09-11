@@ -25,9 +25,11 @@
         "./app/stores/base-store.ts",
         "./app/stores/dashboard-store.ts",
         "./app/stores/product-store.ts",
+        "./app/stores/todo-store.ts",
         "./interfaces/bootstrap.d.ts",
         "./interfaces/classnames.d.ts",
         "./interfaces/events.d.ts",
+        "./interfaces/immutable.d.ts",
         "./interfaces/jquery.d.ts",
         "./interfaces/keymirror.d.ts",
         "./interfaces/product.d.ts",
@@ -43,6 +45,9 @@
         "./app/components/dashboard/dashboard-page.tsx",
         "./app/components/dashboard/dashboard-product-item.tsx",
         "./app/components/dashboard/dashboard-product-list.tsx",
+        "./app/components/todo/todo-item.tsx",
+        "./app/components/todo/todo-list.tsx",
+        "./app/components/todo/todo-page.tsx",
         "./app/main.tsx"
     ],
     "exclude": [

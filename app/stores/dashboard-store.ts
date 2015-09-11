@@ -16,7 +16,6 @@ const
   ITEM_WIDTH = 200,
   LIST_WIDTH = 600;
 
-
 class DashboardStore extends BaseStore {
   private _products:  Immutable.List<Product> = Immutable.List<Product>();
 
